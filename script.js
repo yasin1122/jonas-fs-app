@@ -21,6 +21,15 @@ function calcFactAge(year) {
 console.log(calcFactAge(2031))
 
 const fact = ['Lisbon is the capital of Portugal', 2015, true]
-const [text, createdIn, isCorrect] = fact // destructuring an array
+const [text, createdIn, isCorrect] = fact // destructuring
 const newFact = [...fact, 'society'] // spread operator
 console.log(text)
+
+const testArr = [2, 4, 6, 8]
+testArr.forEach(el => {
+  console.log(el)
+})
+const newTestArr = testArr.map(el => {
+  return el * 10
+})
+console.log(newTestArr.join('---'))
