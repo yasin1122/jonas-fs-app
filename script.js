@@ -10,3 +10,17 @@ btn.addEventListener('click', function () {
     btn.textContent = 'Share a Fact'
   }
 })
+
+function calcFactAge(year) {
+  const currentYear = new Date().getFullYear()
+  const age = currentYear - year
+
+  if (age >= 0) return age
+  else return `Age cannot be calculated with a year after ${currentYear}.`
+}
+console.log(calcFactAge(2031))
+
+const fact = ['Lisbon is the capital of Portugal', 2015, true]
+const [text, createdIn, isCorrect] = fact // destructuring an array
+const newFact = [...fact, 'society'] // spread operator
+console.log(text)
