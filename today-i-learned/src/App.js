@@ -1,15 +1,5 @@
+import { useState } from 'react'
 import './style.css'
-
-const CATEGORIES = [
-  { name: 'technology', color: '#3b82f6' },
-  { name: 'science', color: '#16a34a' },
-  { name: 'finance', color: '#ef4444' },
-  { name: 'society', color: '#eab308' },
-  { name: 'entertainment', color: '#db2777' },
-  { name: 'health', color: '#14b8a6' },
-  { name: 'history', color: '#f97316' },
-  { name: 'news', color: '#8b5cf6' }
-]
 
 const initialFacts = [
   {
@@ -45,6 +35,22 @@ const initialFacts = [
   }
 ]
 
+// useState Demo
+function Counter() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <div>
+      <span style={{ fontSize: '40px' }}>{count}</span>
+      <button
+        className='btn btn-large'
+        onClick={() => setCount(c => c + 1)}>
+        +1
+      </button>
+    </div>
+  )
+}
+
 function App() {
   const appTitle = 'Today I Learned'
   return (
@@ -63,6 +69,8 @@ function App() {
         <button className='btn btn-large btn-open'>Share a fact</button>
       </header>
 
+      <Counter />
+
       <NewFactForm />
       <main className='main'>
         <FactList />
@@ -76,17 +84,35 @@ function NewFactForm() {
   return <form className='fact-form'>Fact form</form>
 }
 
+const CATEGORIES = [
+  { name: 'technology', color: '#3b82f6' },
+  { name: 'science', color: '#16a34a' },
+  { name: 'finance', color: '#ef4444' },
+  { name: 'society', color: '#eab308' },
+  { name: 'entertainment', color: '#db2777' },
+  { name: 'health', color: '#14b8a6' },
+  { name: 'history', color: '#f97316' },
+  { name: 'news', color: '#8b5cf6' }
+]
+
 function CategoryFilter() {
   return (
     <aside>
       <ul>
         <li className='category'>
-          <button
-            className='btn btn-category'
-            style={{ backgroundColor: '#3b82f6' }}>
-            Technology
-          </button>
+          <button className='btn btn-all-categories'>All</button>
         </li>
+        {CATEGORIES.map(cat => (
+          <li
+            key={cat.name}
+            className='category'>
+            <button
+              className='btn btn-category'
+              style={{ backgroundColor: cat.color }}>
+              {cat.name}
+            </button>
+          </li>
+        ))}
       </ul>
     </aside>
   )
