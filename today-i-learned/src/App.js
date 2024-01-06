@@ -81,7 +81,18 @@ function CategoryFilter() {
 }
 
 function FactList() {
-  return <section>Fact list</section>
+  // TEMPORARY
+  const facts = initialFacts
+
+  return (
+    <section>
+      <ul className='fact-list'>
+        {facts.map(fact => (
+          <li>Fact</li>
+        ))}
+      </ul>
+    </section>
+  )
 }
 
 export default App
