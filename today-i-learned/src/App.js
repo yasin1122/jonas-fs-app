@@ -53,26 +53,13 @@ const initialFacts = [
 
 function App() {
   const [showForm, setShowForm] = useState(false)
-  const appTitle = 'Today I Learned'
+
   return (
     <>
-      {/* HEADER */}
-      <header className='header'>
-        <div className='logo'>
-          <img
-            src='logo.png'
-            alt='Today I Learned Logo'
-            height='68'
-            width='68'
-          />
-          <h1>{appTitle}</h1>
-        </div>
-        <button
-          className='btn btn-large btn-open'
-          onClick={() => setShowForm(show => !show)}>
-          Share a fact
-        </button>
-      </header>
+      <Header
+        showForm={showForm}
+        setShowForm={setShowForm}
+      />
       {showForm ? <NewFactForm /> : null}
       <main className='main'>
         <FactList />
@@ -82,8 +69,26 @@ function App() {
   )
 }
 
-function NewFactForm() {
-  return <form className='fact-form'>Fact form</form>
+function Header({ showForm, setShowForm }) {
+  const appTitle = 'Today I Learned'
+  return (
+    <header className='header'>
+      <div className='logo'>
+        <img
+          src='logo.png'
+          alt='Today I Learned Logo'
+          height='68'
+          width='68'
+        />
+        <h1>{appTitle}</h1>
+      </div>
+      <button
+        className='btn btn-large btn-open'
+        onClick={() => setShowForm(show => !show)}>
+        {showForm ? 'Close' : 'Share a Fact'}
+      </button>
+    </header>
+  )
 }
 
 const CATEGORIES = [
@@ -96,6 +101,51 @@ const CATEGORIES = [
   { name: 'history', color: '#f97316' },
   { name: 'news', color: '#8b5cf6' }
 ]
+
+function NewFactForm() {
+  const [text, setText] = useState('')
+  const [source, setSource] = useState('')
+  const [category, setCategory] = useState('')
+  const textLength = text.length
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    console.log(text, source, category)
+  }
+
+  return (
+    <form
+      className='fact-form'
+      onSubmit={handleSubmit}>
+      <input
+        type='text'
+        placeholder='Share a fact with the world...'
+        value={text}
+        onChange={e => setText(e.target.value)}
+      />
+      <span>{200 - textLength}</span>
+      <input
+        type='text'
+        placeholder='Trustworthy source...'
+        value={source}
+        onChange={e => setSource(e.target.value)}
+      />
+      <select
+        value={category}
+        onChange={e => setCategory(e.target.value)}>
+        <option value=''>Choose category:</option>
+        {CATEGORIES.map(cat => (
+          <option
+            key={cat.name}
+            value={cat.name}>
+            {cat.name.toUpperCase()}
+          </option>
+        ))}
+      </select>
+      <button className='btn btn-large'>Post</button>
+    </form>
+  )
+}
 
 function CategoryFilter() {
   return (
